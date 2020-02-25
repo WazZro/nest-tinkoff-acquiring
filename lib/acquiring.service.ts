@@ -1,28 +1,30 @@
-import crypto = require("crypto");
+import crypto = require('crypto');
 
-import { Injectable, HttpService, Logger, Optional } from "@nestjs/common";
-import { InitResponse, InitOptions } from "./interfaces/init.interface";
-import { AcquiringOptionsService } from "./acquiring-options.service";
-import { TinkoffAcquiringUrls } from "./url.enum";
+import { AxiosResponse } from 'axios';
+import { HttpService, Injectable, Logger, Optional } from '@nestjs/common';
+import { AcquiringOptionsService } from './acquiring-options.service';
+import { OptionsBase, ResponseBase } from './interfaces/base.interface';
+import { InitOptions, InitResponse } from './interfaces/init.interface';
+import { TinkoffAcquiringUrls } from './url.enum';
 
 @Injectable()
 export class AcquiringService {
   private static readonly HEADERS_JSON_DEFAULT = {
-    "Content-Type": "application/json"
+    'Content-Type': 'application/json',
   };
 
   constructor(
     private http: HttpService,
     private options: AcquiringOptionsService,
-    @Optional() private logger: Logger
+    @Optional() private logger: Logger,
   ) {}
 
   public async initPayment(options: InitOptions): Promise<InitResponse> {
     try {
-      this.logger?.log("Creating init request...");
+      this.logger?.log('Creating init request...');
       const response = await this.getRequest<InitResponse>(
         TinkoffAcquiringUrls.INIT,
-        options
+        options,
       );
 
       return response.data;
@@ -32,25 +34,39 @@ export class AcquiringService {
     }
   }
 
-  private generateToken(body): string {
-    let values = Object.keys(body)
+  public generateToken(body: unknown, password: string): string {
+    const bodyCopy = Object.assign({}, body);
+    bodyCopy['Password'] = password;
+
+    const values = Object.keys(bodyCopy)
+      .filter(
+        key => key.toLowerCase() !== 'data' && key.toLowerCase() !== 'receipt',
+      )
       .sort()
-      .map(key => body[key])
-      .join("");
+      .map(key => bodyCopy[key])
+      .join('');
 
     return crypto
-      .createHash("sha256")
+      .createHash('sha256')
       .update(values)
-      .digest("hex");
+      .digest('hex');
   }
 
-  private async getRequest<T>(url: string, options: any) {
-    const opt = Object.assign({}, this.options.options, options);
-    opt.Token = this.generateToken(opt);
+  private prepareOptions(options: OptionsBase): OptionsBase {
+    options.TerminalKey = this.options.options.terminalKey;
+    options.Token = this.generateToken(options, this.options.options.password);
 
+    return options;
+  }
+
+  private async getRequest<T extends ResponseBase>(
+    url: string,
+    options: OptionsBase,
+  ): Promise<AxiosResponse<T>> {
+    this.prepareOptions(options);
     return this.http
-      .post<T>(url, opt, {
-        headers: AcquiringService.HEADERS_JSON_DEFAULT
+      .post<T>(url, options, {
+        headers: AcquiringService.HEADERS_JSON_DEFAULT,
       })
       .toPromise();
   }
