@@ -1,10 +1,10 @@
 import { OptionsBase, ResponseBase } from './base.interface';
 
-export interface StateOptions extends OptionsBase {
+export interface ConfirmOptions extends OptionsBase {
   PaymentId: string;
   Amount?: number;
   IP?: string;
   Receipt?: {};
 }
 
-export interface StateResponse extends ResponseBase {}
+export interface ConfirmResponse extends ResponseBase {}

@@ -16,7 +16,7 @@ export interface FinishAuthorizeOptions extends OptionsBase {
   DATA?: {};
 }
 
-export interface InitResponse extends ResponseBase {
+export interface FinishAuthorizeResponse extends ResponseBase {
   Amount: number;
   CardId?: string;
 }
