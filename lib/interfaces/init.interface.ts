@@ -1,23 +1,29 @@
-export interface InitOptions {
-  Amount: number;
+import { OptionsBase, ResponseBase } from './base.interface';
+
+export interface InitOptions extends OptionsBase {
+  Amount?: number;
   OrderId: string;
   IP?: string;
   Description?: string;
   Currency?: number;
-  Language?: string;
+  Language?: 'ru' | 'en';
   CustomerKey?: string;
-  Recurrent?: string;
+  Recurrent?: 'Y';
   RedirectDueDate?: Date;
-  DATA?: string;
+  NotificationURL?: string;
+  SuccessURL?: string;
+  FailURL?: string;
+  PayType?: 'O' | 'T';
+  Receipt?: unknown;
+  DATA?: unknown;
 }
 
-export interface InitResponse {
-  TerminalKey: string;
+export interface InitResponse extends ResponseBase {
   Amount: number;
   OrderId: string;
   Success: boolean;
-  Status: any;
-  PaymentId: string;
+  Status: string;
+  PaymentId: number;
   ErrorCode: string;
   PaymentURL?: string;
   Message?: string;
