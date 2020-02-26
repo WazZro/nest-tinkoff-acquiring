@@ -11,7 +11,7 @@ export class AcquiringModule {
       providers: [
         {
           provide: AcquiringOptionsService,
-          useExisting: new AcquiringOptionsService(options),
+          useValue: new AcquiringOptionsService(options),
         },
         AcquiringService,
       ],
