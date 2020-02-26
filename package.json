@@ -1,7 +1,7 @@
 {
   "name": "nest-tinkoff-acquiring",
-  "version": "0.0.12",
-  "description": "",
+  "version": "0.0.13",
+  "description": "Tinkoff Online Acquiring module for NestJS",
   "author": {
     "name": "Vadim Usinov",
     "email": "wazzroboy@gmail.com",
