@@ -1,7 +1,5 @@
-import { Injectable } from '@nestjs/common';
 import { TinkoffOptions } from './interfaces/tinkoff-options.interface';
 
-@Injectable()
 export class AcquiringOptionsService {
   constructor(private opt: TinkoffOptions) {}
 

@@ -3,11 +3,7 @@ import { AcquiringService } from './acquiring.service';
 import { TinkoffOptions } from './interfaces/tinkoff-options.interface';
 import { AcquiringOptionsService } from './acquiring-options.service';
 
-@Module({
-  imports: [HttpModule],
-  providers: [AcquiringService],
-  exports: [AcquiringService],
-})
+@Module({})
 export class AcquiringModule {
   public static register(options: TinkoffOptions): DynamicModule {
     return {
@@ -20,6 +16,7 @@ export class AcquiringModule {
         AcquiringService,
       ],
       exports: [AcquiringService],
+      imports: [HttpModule],
     };
   }
 }
