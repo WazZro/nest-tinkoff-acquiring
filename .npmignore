@@ -1,0 +1,15 @@
+# source
+lib
+test
+index.ts
+package-lock.json
+tsconfig.json
+tsconfig.build.json
+.prettierrc
+.vscode
+
+# misc
+.commitlintrc.json
+.release-it.json
+.eslintignore
+.eslintrc.json
