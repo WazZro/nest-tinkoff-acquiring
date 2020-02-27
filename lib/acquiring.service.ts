@@ -1,6 +1,12 @@
 import crypto = require('crypto');
 
-import { HttpService, Injectable, Logger, Optional } from '@nestjs/common';
+import {
+  HttpService,
+  Injectable,
+  Logger,
+  Optional,
+  BadRequestException,
+} from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import {
   CancelOptions,
@@ -58,6 +64,7 @@ export class AcquiringService {
         options,
       );
 
+      this.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -74,6 +81,7 @@ export class AcquiringService {
         options,
       );
 
+      this.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -92,6 +100,7 @@ export class AcquiringService {
         options,
       );
 
+      this.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -110,6 +119,7 @@ export class AcquiringService {
         options,
       );
 
+      this.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -134,6 +144,11 @@ export class AcquiringService {
       .createHash('sha256')
       .update(values)
       .digest('hex');
+  }
+
+  private errorCheck(response: ResponseBase): void {
+    if (response.ErrorCode === '0') return;
+    throw new BadRequestException(response.Message, response.Details);
   }
 
   private prepareOptions(options: OptionsBase): OptionsBase {
