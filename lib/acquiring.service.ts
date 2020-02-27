@@ -1,7 +1,17 @@
 import crypto = require('crypto');
 
-import { AxiosResponse } from 'axios';
 import { HttpService, Injectable, Logger, Optional } from '@nestjs/common';
+import { AxiosResponse } from 'axios';
+import {
+  CancelOptions,
+  CancelResponse,
+  StateOptions,
+  StateResponse,
+  ConfirmOptions,
+  ConfirmResponse,
+  FinishAuthorizeResponse,
+  FinishAuthorizeOptions,
+} from '.';
 import { AcquiringOptionsService } from './acquiring-options.service';
 import { OptionsBase, ResponseBase } from './interfaces/base.interface';
 import { InitOptions, InitResponse } from './interfaces/init.interface';
@@ -13,12 +23,17 @@ export class AcquiringService {
     'Content-Type': 'application/json',
   };
 
-  constructor(
+  public constructor(
     private http: HttpService,
     private options: AcquiringOptionsService,
     @Optional() private logger: Logger,
   ) {}
 
+  /**
+   * Initialize payment
+   * @param {InitOptions} options
+   * @returnType {Promise<InitResponse>}
+   */
   public async initPayment(options: InitOptions): Promise<InitResponse> {
     try {
       this.logger?.log('Creating init request...');
@@ -31,6 +46,75 @@ export class AcquiringService {
     } catch (e) {
       this.logger?.error(e);
       Logger.error(e);
+      throw e;
+    }
+  }
+
+  public async getPaymentState(options: StateOptions): Promise<StateResponse> {
+    try {
+      this.logger?.log('Get state request...');
+      const response = await this.getRequest<StateResponse>(
+        TinkoffAcquiringUrls.GET_STATE,
+        options,
+      );
+
+      return response.data;
+    } catch (e) {
+      this.logger?.error(e);
+      Logger.error(e);
+      throw e;
+    }
+  }
+
+  public async cancelPayment(options: CancelOptions): Promise<CancelResponse> {
+    try {
+      this.logger?.log('Cancel request...');
+      const response = await this.getRequest<CancelResponse>(
+        TinkoffAcquiringUrls.CANCEL,
+        options,
+      );
+
+      return response.data;
+    } catch (e) {
+      this.logger?.error(e);
+      Logger.error(e);
+      throw e;
+    }
+  }
+
+  public async confirmPayment(
+    options: ConfirmOptions,
+  ): Promise<ConfirmResponse> {
+    try {
+      this.logger?.log('Confirm request...');
+      const response = await this.getRequest<ConfirmResponse>(
+        TinkoffAcquiringUrls.CANCEL,
+        options,
+      );
+
+      return response.data;
+    } catch (e) {
+      this.logger?.error(e);
+      Logger.error(e);
+      throw e;
+    }
+  }
+
+  public async finishAuthorizePayment(
+    options: FinishAuthorizeOptions,
+  ): Promise<FinishAuthorizeResponse> {
+    try {
+      this.logger?.log('Finishing authorize request...');
+      const response = await this.getRequest<FinishAuthorizeResponse>(
+        TinkoffAcquiringUrls.CANCEL,
+        options,
+      );
+
+      return response.data;
+    } catch (e) {
+      this.logger?.error(e);
+      Logger.error(e);
+      throw e;
     }
   }
 
