@@ -2,6 +2,7 @@ import { OptionsBase, ResponseBase } from './base.interface';
 
 export interface CancelOptions extends OptionsBase {
   Amount: number;
+  PaymentId: number;
   IP?: string;
   Receipt: {};
 }
