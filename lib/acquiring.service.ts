@@ -21,7 +21,7 @@ import {
 import { AcquiringOptionsService } from './acquiring-options.service';
 import { OptionsBase, ResponseBase } from './interfaces/base.interface';
 import { InitOptions, InitResponse } from './interfaces/init.interface';
-import { TinkoffAcquiringUrls } from './url.enum';
+import { TinkoffAcquiringUrls } from './enum/url.enum';
 
 @Injectable()
 export class AcquiringService {

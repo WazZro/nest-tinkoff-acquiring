@@ -1,4 +1,5 @@
 import { OptionsBase, ResponseBase } from './base.interface';
+import { Receipt } from './receipt.interface';
 
 // https://oplata.tinkoff.ru/develop/api/payments/finishAuthorize-request/
 export interface FinishAuthorizeOptions extends OptionsBase {
@@ -12,7 +13,7 @@ export interface FinishAuthorizeOptions extends OptionsBase {
   Phone?: string;
   Route?: 'ACQ'; // wtf
   Source?: 'cards' | 'ApplePay';
-  Receipt?: {};
+  Receipt?: Receipt;
   DATA?: {};
 }
 

@@ -1,11 +1,12 @@
 import { OptionsBase, ResponseBase } from './base.interface';
+import { Receipt } from './receipt.interface';
 
 export interface InitOptions extends OptionsBase {
   Amount?: number;
   OrderId: string;
   IP?: string;
   Description?: string;
-  Currency?: number;
+  // Currency?: number;
   Language?: 'ru' | 'en';
   CustomerKey?: string;
   Recurrent?: 'Y';
@@ -14,8 +15,8 @@ export interface InitOptions extends OptionsBase {
   SuccessURL?: string;
   FailURL?: string;
   PayType?: 'O' | 'T';
-  Receipt?: unknown;
-  DATA?: unknown;
+  Receipt?: Receipt;
+  DATA?: {};
 }
 
 export interface InitResponse extends ResponseBase {
