@@ -7,6 +7,8 @@ tsconfig.json
 tsconfig.build.json
 .prettierrc
 .vscode
+nest-cli.json
+README.md
 
 # misc
 .commitlintrc.json
