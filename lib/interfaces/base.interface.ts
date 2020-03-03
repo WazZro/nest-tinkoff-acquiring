@@ -5,7 +5,7 @@ export interface OptionsBase {
 
 export interface ResponseBase {
   TerminalKey: string;
-  OrderID: string;
+  OrderId: string;
   Success: boolean;
   Status: string;
   PaymentId: number;
