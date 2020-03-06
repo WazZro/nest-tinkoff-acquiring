@@ -149,7 +149,7 @@ export class AcquiringService {
 
   private errorCheck(response: ResponseBase): void {
     if (response.ErrorCode === '0') return;
-    throw new BadRequestException(response.Message, response.Details);
+    throw new BadRequestException(response.Details, response.Message);
   }
 
   private prepareOptions(options: OptionsBase): OptionsBase {
