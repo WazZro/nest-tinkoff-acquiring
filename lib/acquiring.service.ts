@@ -48,6 +48,7 @@ export class AcquiringService {
         options,
       );
 
+      this.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
