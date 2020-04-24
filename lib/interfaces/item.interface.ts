@@ -1,6 +1,4 @@
-import { TinkoffPaymentMethods } from '../enum/payment-methods.enum';
-import { TinkoffPaymentObjects } from '../enum/payment-object.enum';
-import { TinkoffVatValues } from '../enum/vat.enum';
+import { TinkoffPaymentMethods, TinkoffPaymentObjects, TinkoffVatValues } from '..';
 
 export interface Item {
   Name: string;

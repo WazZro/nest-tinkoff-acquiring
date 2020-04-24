@@ -1,4 +1,4 @@
-import { TinkoffAcquiringTaxations } from '../enum/taxation.enum';
+import { TinkoffAcquiringTaxations } from '..';
 import { Item } from './item.interface';
 
 export interface Receipt {

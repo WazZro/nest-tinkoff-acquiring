@@ -48,7 +48,7 @@ export class AcquiringService {
         options,
       );
 
-      this.errorCheck(response.data);
+      AcquiringService.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -65,7 +65,7 @@ export class AcquiringService {
         options,
       );
 
-      this.errorCheck(response.data);
+      AcquiringService.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -82,7 +82,7 @@ export class AcquiringService {
         options,
       );
 
-      this.errorCheck(response.data);
+      AcquiringService.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -101,7 +101,7 @@ export class AcquiringService {
         options,
       );
 
-      this.errorCheck(response.data);
+      AcquiringService.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -120,7 +120,7 @@ export class AcquiringService {
         options,
       );
 
-      this.errorCheck(response.data);
+      AcquiringService.errorCheck(response.data);
       return response.data;
     } catch (e) {
       this.logger?.error(e);
@@ -147,7 +147,7 @@ export class AcquiringService {
       .digest('hex');
   }
 
-  private errorCheck(response: ResponseBase): void {
+  private static errorCheck(response: ResponseBase): void {
     if (response.ErrorCode === '0') return;
     throw new BadRequestException(response.Details, response.Message);
   }
